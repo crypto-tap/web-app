@@ -1,4 +1,6 @@
-const axios = require('axios')
+import { useState } from 'react'
+import axios from 'axios'
+import { Box, useToast } from '@chakra-ui/react'
 import {
   Flex,
   Button,
@@ -7,19 +9,55 @@ import {
   Input,
   FormHelperText,
 } from '@chakra-ui/react'
-import { useEffect } from 'react'
+import { BigNumber } from 'ethers'
 
 export default function Admin() {
-  useEffect(() => {
+  const toast = useToast()
+  const [amount, setAmount] = useState(0)
+
+  const onSubmit = () => {
     async function createToken() {
+      toast({
+        title: 'Minting...',
+        status: 'info',
+        duration: 10000,
+        isClosable: true,
+      })
       axios
-        .get('/api/mint-token')
+        .get('/api/mint-token', {
+          params: {
+            amount: amount,
+          },
+        })
         .then(function (response) {
-          // handle success
-          console.log(response)
+          toast({
+            title: 'Tx sent',
+            render: () => (
+              <Box p={3} bg={'green.300'} color={'white'}>
+                Tx:{' '}
+                <a
+                  target={'_blank'}
+                  rel="noreferrer"
+                  href={`https://mumbai.polygonscan.com/tx/${response.data.hash}`}
+                >
+                  {response.data.hash}
+                </a>
+              </Box>
+            ),
+            description: `Tx: ${response.data.hash}`,
+            status: 'success',
+            duration: 9000,
+            isClosable: true,
+          })
         })
         .catch(function (error) {
-          // handle error
+          toast({
+            title: 'Error while minting...',
+            description: error.message,
+            status: 'error',
+            duration: 5000,
+            isClosable: true,
+          })
           console.log(error)
         })
         .then(function () {
@@ -27,7 +65,12 @@ export default function Admin() {
         })
     }
     createToken()
-  }, [])
+  }
+  const onChangeAmount = (e) => {
+    const { value } = e.target
+    console.log(value)
+    setAmount(value)
+  }
   return (
     <Flex
       flexDir="column"
@@ -38,12 +81,12 @@ export default function Admin() {
     >
       <FormControl>
         <FormLabel>Token Amount</FormLabel>
-        <Input type="number" placeholder="1000" />
+        <Input type="number" placeholder="1000" onChange={onChangeAmount} />
         <FormHelperText>
           The amount of token that you want to create
         </FormHelperText>
       </FormControl>
-      <Button>Create and Mint Tokens</Button>
+      <Button onClick={onSubmit}>Mint Tokens</Button>
     </Flex>
   )
 }
