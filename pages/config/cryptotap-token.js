@@ -2,9 +2,9 @@ import sdk from './cryptumSDK'
 import { PROTOCOL } from '../config/enum'
 
 const tokenConfig = {
-  name: 'cryptoTapToken',
+  name: 'Crypto Tap Token',
   symbol: 'CTT',
-  decimals: 10,
+  decimals: 18,
   amount: '0',
   protocol: PROTOCOL,
 }
@@ -26,7 +26,7 @@ export class CryptotapToken {
     const { contractAddress } =
       await sdk.transaction.getTransactionReceiptByHash({
         protocol: PROTOCOL,
-        hash: '0xdc60ba1ae357dc242f265206d60a97891b42589576576bf83a72a9dfddf769a4',
+        hash: '0x2f723b778319180893725f48ced47cca2787d722efcf853fa102765e49166e0f',
       })
     this.tokenAddress = contractAddress
     return this.getTokenInfo()

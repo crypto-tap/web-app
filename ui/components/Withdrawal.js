@@ -1,6 +1,6 @@
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Box, useToast } from '@chakra-ui/react'
+import { Box, Heading, Text, useToast } from '@chakra-ui/react'
 import {
   Flex,
   Button,
@@ -11,27 +11,9 @@ import {
 } from '@chakra-ui/react'
 import { ethers } from 'ethers'
 
-export default function Admin() {
+export default function Withdrawal() {
   const toast = useToast()
   const [amount, setAmount] = useState(0)
-  const [vaultAmount, setVaultAmount] = useState('-')
-
-  useEffect(() => {
-    async function getTokenAmount() {
-      axios
-        .get('/api/get-token-amount')
-        .then(function (response) {
-          let newAmount = response.data.maxSupply
-          newAmount = ethers.utils.formatUnits(newAmount, 10)
-          setVaultAmount(newAmount)
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
-    }
-    getTokenAmount()
-  }, [vaultAmount])
-
   const onSubmit = () => {
     async function createToken() {
       toast({
@@ -91,24 +73,33 @@ export default function Admin() {
     <Flex
       flexDir="column"
       alignItems="center"
-      mt={{ base: 12, lg: 14 }}
+      my={{ base: 12, lg: 14 }}
       maxW={800}
       margin="0 auto"
     >
-      <Box>Total minted: {vaultAmount} $CTT</Box>
+      <Heading>Withdrawal money</Heading>
+      <Text py={5}>$CTT will be burnt and $BRZ will be sent to our wallet</Text>
       <FormControl>
-        <FormLabel>Token Amount</FormLabel>
+        <FormLabel>User ID</FormLabel>
+        <Input
+          type="number"
+          placeholder="1234"
+          onChange={onChangeAmount}
+          value={amount}
+        />
+        <FormHelperText>Investor user ID</FormHelperText>
+      </FormControl>
+      <FormControl py={5}>
+        <FormLabel>BRZ Amount to stake</FormLabel>
         <Input
           type="number"
           placeholder="1000"
           onChange={onChangeAmount}
           value={amount}
         />
-        <FormHelperText>
-          The amount of token that you want to create
-        </FormHelperText>
+        <FormHelperText>How much the user set to invest</FormHelperText>
       </FormControl>
-      <Button onClick={onSubmit}>Mint Tokens</Button>
+      <Button onClick={onSubmit}>Invest BRZ</Button>
     </Flex>
   )
 }

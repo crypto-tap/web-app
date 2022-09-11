@@ -16,7 +16,7 @@ export default async function handler(req, res) {
     const { hash } = await sdk.token.mint({
       wallet,
       token: process.env.NEXT_PUBLIC_CTT_TOKEN_ADDRESS, // token address
-      destination: process.env.NEXT_PUBLIC_CT_ADDRESS, // destination address
+      destination: process.env.NEXT_PUBLIC_SWAP_CONTRACT_ADDRESS, // destination address
       amount: req.query.amount,
       protocol: PROTOCOL,
     })
