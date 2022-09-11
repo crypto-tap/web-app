@@ -1,6 +1,6 @@
-import sdk from '../config/cryptumSDK'
+import sdk from '../../ui/config/cryptumSDK'
 import _ERC20 from '../../web3/abi/ERC20.json'
-import { PROTOCOL } from '../config/enum'
+import { PROTOCOL } from '../../ui/config/enum'
 
 export default async function handler(req, res) {
   const { result } = await sdk.contract.callMethod({

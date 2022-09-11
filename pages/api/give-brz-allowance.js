@@ -1,7 +1,7 @@
-import sdk from '../config/cryptumSDK'
+import sdk from '../../ui/config/cryptumSDK'
 import _CryptoTapTokenSwap from '../../web3/abi/CryptoTapTokenSwap.json'
 import _BRZToken from '../../web3/abi/BRZToken.json'
-import { PROTOCOL } from '../config/enum'
+import { PROTOCOL } from '../../ui/config/enum'
 
 export default async function handler(req, res) {
   try {

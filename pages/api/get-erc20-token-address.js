@@ -1,4 +1,4 @@
-import cryptotapToken from '../config/cryptotap-token'
+import cryptotapToken from '../../ui/config/cryptotap-token'
 
 export default async function handler(req, res) {
   const { tokenAddress, hash } = await cryptotapToken.getTokenAddress()

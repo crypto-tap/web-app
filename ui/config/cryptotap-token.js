@@ -1,5 +1,5 @@
 import sdk from './cryptumSDK'
-import { PROTOCOL } from '../config/enum'
+import { PROTOCOL } from './enum'
 
 const tokenConfig = {
   name: 'Crypto Tap Token',

@@ -1,6 +1,6 @@
-import sdk from '../config/cryptumSDK'
-import { PROTOCOL } from '../config/enum'
-import cryptotapToken from '../config/cryptotap-token'
+import sdk from '../../ui/config/cryptumSDK'
+import { PROTOCOL } from '../../ui/config/enum'
+import cryptotapToken from '../../ui/config/cryptotap-token'
 
 export default async function handler(req, res) {
   const wallet = await sdk.wallet.generateWallet({
