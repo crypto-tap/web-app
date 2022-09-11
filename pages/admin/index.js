@@ -25,5 +25,3 @@ export default function Admin() {
     </Box>
   )
 }
-
-export const getStaticProps = async ({}) => ({ props: {} })
