@@ -1,12 +1,10 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
 import { MagnifyingGlass } from 'phosphor-react'
 import payImage from '../assets/pay.png'
 import transferImage from '../assets/transfer.png'
 import receiveImage from '../assets/receive.png'
 
-const valueOnAccount = 1601.07
 export default function Home() {
   // const [percentageToInvest, setPercentageToInvest] = useState<number>(10)
   // const [walletAddress, setWalletAddress] = useState<string>('')
@@ -15,6 +13,8 @@ export default function Home() {
   // const [userName, setUserName] = useState<string>('')
   // const [email, setEmail] = useState<string>('')
   // const [password, setPassword] = useState<string>('')
+
+  const valueOnAccount = 1601.07
 
   // function handleSubmit() {
   //   setIsConnected(true)
