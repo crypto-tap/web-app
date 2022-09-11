@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import axios from 'axios'
 import { Box, useToast } from '@chakra-ui/react'
 import {
@@ -9,11 +9,28 @@ import {
   Input,
   FormHelperText,
 } from '@chakra-ui/react'
-import { BigNumber } from 'ethers'
+import { ethers } from 'ethers'
 
 export default function Admin() {
   const toast = useToast()
   const [amount, setAmount] = useState(0)
+  const [vaultAmount, setVaultAmount] = useState('-')
+
+  useEffect(() => {
+    async function getTokenAmount() {
+      axios
+        .get('/api/get-token-amount')
+        .then(function (response) {
+          let newAmount = response.data.maxSupply
+          newAmount = ethers.utils.formatUnits(newAmount, 10)
+          setVaultAmount(newAmount)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    }
+    getTokenAmount()
+  }, [vaultAmount])
 
   const onSubmit = () => {
     async function createToken() {
@@ -49,6 +66,7 @@ export default function Admin() {
             duration: 9000,
             isClosable: true,
           })
+          setAmount(0)
         })
         .catch(function (error) {
           toast({
@@ -60,9 +78,6 @@ export default function Admin() {
           })
           console.log(error)
         })
-        .then(function () {
-          // always executed
-        })
     }
     createToken()
   }
@@ -71,6 +86,7 @@ export default function Admin() {
     console.log(value)
     setAmount(value)
   }
+
   return (
     <Flex
       flexDir="column"
@@ -79,9 +95,15 @@ export default function Admin() {
       maxW={800}
       margin="0 auto"
     >
+      <Box>Total minted: {vaultAmount} $CTT</Box>
       <FormControl>
         <FormLabel>Token Amount</FormLabel>
-        <Input type="number" placeholder="1000" onChange={onChangeAmount} />
+        <Input
+          type="number"
+          placeholder="1000"
+          onChange={onChangeAmount}
+          value={amount}
+        />
         <FormHelperText>
           The amount of token that you want to create
         </FormHelperText>
