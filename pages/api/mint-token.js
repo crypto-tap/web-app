@@ -1,4 +1,4 @@
-// import sdk from '../../ui/config/cryptumSDK'
+import sdk from '../../ui/config/cryptumSDK'
 // import { PROTOCOL } from '../../ui/config/enum'
 
 export default async function handler(req, res) {

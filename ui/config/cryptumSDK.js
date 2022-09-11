@@ -1,4 +1,4 @@
-const CryptumSdk = require('cryptum-sdk')
+import CryptumSdk from 'cryptum-sdk'
 
 const sdk = new CryptumSdk({
   environment: 'testnet', // 'testnet', 'mainnet'
